@@ -255,8 +255,11 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.Fixed3D;
+            MaximizeBox = false;
             Name = "MainForm";
-            Text = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "BMI Calculator by Nora Hammenberg";
             ResumeLayout(false);
             PerformLayout();
         }
