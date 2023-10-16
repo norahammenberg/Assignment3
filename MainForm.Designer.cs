@@ -30,23 +30,25 @@
         {
             label1 = new Label();
             label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
+            height = new Label();
+            weight = new Label();
             label5 = new Label();
-            label6 = new Label();
+            resultText = new Label();
             label7 = new Label();
             label8 = new Label();
             bmiResult = new Label();
             weightResult = new Label();
             label11 = new Label();
-            radioButtonMetric = new RadioButton();
-            radioButtonImperial = new RadioButton();
             textName = new TextBox();
             textWeight = new TextBox();
-            textHeightRight = new TextBox();
-            textHeightLeft = new TextBox();
+            inche = new TextBox();
             buttonCalc = new Button();
             label12 = new Label();
+            groupBox = new GroupBox();
+            radioButtonFT = new RadioButton();
+            radioButtonKG = new RadioButton();
+            feetCm = new TextBox();
+            groupBox.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -69,25 +71,25 @@
             label2.TabIndex = 1;
             label2.Text = "Name:";
             // 
-            // label3
+            // height
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(56, 124);
-            label3.Name = "label3";
-            label3.Size = new Size(59, 21);
-            label3.TabIndex = 2;
-            label3.Text = "Height:";
+            height.AutoSize = true;
+            height.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            height.Location = new Point(56, 124);
+            height.Name = "height";
+            height.Size = new Size(59, 21);
+            height.TabIndex = 2;
+            height.Text = "Height:";
             // 
-            // label4
+            // weight
             // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(56, 158);
-            label4.Name = "label4";
-            label4.Size = new Size(62, 21);
-            label4.TabIndex = 3;
-            label4.Text = "Weight:";
+            weight.AutoSize = true;
+            weight.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            weight.Location = new Point(56, 158);
+            weight.Name = "weight";
+            weight.Size = new Size(62, 21);
+            weight.TabIndex = 3;
+            weight.Text = "Weight:";
             // 
             // label5
             // 
@@ -99,15 +101,15 @@
             label5.TabIndex = 4;
             label5.Text = "Units:";
             // 
-            // label6
+            // resultText
             // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.Location = new Point(56, 274);
-            label6.Name = "label6";
-            label6.Size = new Size(83, 21);
-            label6.TabIndex = 5;
-            label6.Text = "Result for";
+            resultText.AutoSize = true;
+            resultText.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            resultText.Location = new Point(56, 274);
+            resultText.Name = "resultText";
+            resultText.Size = new Size(83, 21);
+            resultText.TabIndex = 5;
+            resultText.Text = "Result for";
             // 
             // label7
             // 
@@ -161,28 +163,6 @@
             label11.TabIndex = 10;
             label11.Text = "Normal BMI is between 12.50 and 24.9";
             // 
-            // radioButtonMetric
-            // 
-            radioButtonMetric.AutoSize = true;
-            radioButtonMetric.Location = new Point(502, 127);
-            radioButtonMetric.Name = "radioButtonMetric";
-            radioButtonMetric.Size = new Size(106, 19);
-            radioButtonMetric.TabIndex = 11;
-            radioButtonMetric.TabStop = true;
-            radioButtonMetric.Text = "Metric (kg, cm)";
-            radioButtonMetric.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonImperial
-            // 
-            radioButtonImperial.AutoSize = true;
-            radioButtonImperial.Location = new Point(502, 161);
-            radioButtonImperial.Name = "radioButtonImperial";
-            radioButtonImperial.Size = new Size(108, 19);
-            radioButtonImperial.TabIndex = 12;
-            radioButtonImperial.TabStop = true;
-            radioButtonImperial.Text = "Imperial (ft, lbs)";
-            radioButtonImperial.UseVisualStyleBackColor = true;
-            // 
             // textName
             // 
             textName.Location = new Point(186, 85);
@@ -192,24 +172,18 @@
             // 
             // textWeight
             // 
-            textWeight.Location = new Point(386, 156);
+            textWeight.Location = new Point(326, 156);
             textWeight.Name = "textWeight";
-            textWeight.Size = new Size(72, 23);
+            textWeight.Size = new Size(132, 23);
             textWeight.TabIndex = 14;
             // 
-            // textHeightRight
+            // inche
             // 
-            textHeightRight.Location = new Point(386, 122);
-            textHeightRight.Name = "textHeightRight";
-            textHeightRight.Size = new Size(72, 23);
-            textHeightRight.TabIndex = 15;
-            // 
-            // textHeightLeft
-            // 
-            textHeightLeft.Location = new Point(308, 122);
-            textHeightLeft.Name = "textHeightLeft";
-            textHeightLeft.Size = new Size(72, 23);
-            textHeightLeft.TabIndex = 16;
+            inche.Location = new Point(406, 122);
+            inche.Name = "inche";
+            inche.Size = new Size(52, 23);
+            inche.TabIndex = 15;
+            inche.TextChanged += inche_TextChanged;
             // 
             // buttonCalc
             // 
@@ -220,6 +194,7 @@
             buttonCalc.TabIndex = 17;
             buttonCalc.Text = "Calculate you BMI";
             buttonCalc.UseVisualStyleBackColor = true;
+            buttonCalc.Click += buttonCalc_Click;
             // 
             // label12
             // 
@@ -231,28 +206,70 @@
             label12.TabIndex = 18;
             label12.Text = "Normal weight should be between 116 and 157 lbs";
             // 
+            // groupBox
+            // 
+            groupBox.BackColor = SystemColors.Control;
+            groupBox.Controls.Add(radioButtonFT);
+            groupBox.Controls.Add(radioButtonKG);
+            groupBox.ForeColor = SystemColors.ActiveCaptionText;
+            groupBox.Location = new Point(502, 111);
+            groupBox.Name = "groupBox";
+            groupBox.Size = new Size(200, 100);
+            groupBox.TabIndex = 19;
+            groupBox.TabStop = false;
+            // 
+            // radioButtonFT
+            // 
+            radioButtonFT.AutoSize = true;
+            radioButtonFT.Location = new Point(6, 47);
+            radioButtonFT.Name = "radioButtonFT";
+            radioButtonFT.Size = new Size(108, 19);
+            radioButtonFT.TabIndex = 13;
+            radioButtonFT.TabStop = true;
+            radioButtonFT.Text = "Imperial (ft, lbs)";
+            radioButtonFT.UseVisualStyleBackColor = true;
+            radioButtonFT.CheckedChanged += radioButtonFT_CheckedChanged;
+            // 
+            // radioButtonKG
+            // 
+            radioButtonKG.AutoSize = true;
+            radioButtonKG.Location = new Point(6, 22);
+            radioButtonKG.Name = "radioButtonKG";
+            radioButtonKG.Size = new Size(106, 19);
+            radioButtonKG.TabIndex = 12;
+            radioButtonKG.TabStop = true;
+            radioButtonKG.Text = "Metric (kg, cm)";
+            radioButtonKG.UseVisualStyleBackColor = true;
+            radioButtonKG.CheckedChanged += radioButtonKG_CheckedChanged;
+            // 
+            // feetCm
+            // 
+            feetCm.Location = new Point(326, 122);
+            feetCm.Name = "feetCm";
+            feetCm.Size = new Size(74, 23);
+            feetCm.TabIndex = 20;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(660, 498);
+            Controls.Add(feetCm);
+            Controls.Add(groupBox);
             Controls.Add(label12);
             Controls.Add(buttonCalc);
-            Controls.Add(textHeightLeft);
-            Controls.Add(textHeightRight);
+            Controls.Add(inche);
             Controls.Add(textWeight);
             Controls.Add(textName);
-            Controls.Add(radioButtonImperial);
-            Controls.Add(radioButtonMetric);
             Controls.Add(label11);
             Controls.Add(weightResult);
             Controls.Add(bmiResult);
             Controls.Add(label8);
             Controls.Add(label7);
-            Controls.Add(label6);
+            Controls.Add(resultText);
             Controls.Add(label5);
-            Controls.Add(label4);
-            Controls.Add(label3);
+            Controls.Add(weight);
+            Controls.Add(height);
             Controls.Add(label2);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.Fixed3D;
@@ -260,6 +277,8 @@
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "BMI Calculator by Nora Hammenberg";
+            groupBox.ResumeLayout(false);
+            groupBox.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -268,22 +287,23 @@
 
         private Label label1;
         private Label label2;
-        private Label label3;
-        private Label label4;
+        private Label height;
+        private Label weight;
         private Label label5;
-        private Label label6;
+        private Label resultText;
         private Label label7;
         private Label label8;
         private Label bmiResult;
         private Label weightResult;
         private Label label11;
-        private RadioButton radioButtonMetric;
-        private RadioButton radioButtonImperial;
         private TextBox textName;
         private TextBox textWeight;
-        private TextBox textHeightRight;
-        private TextBox textHeightLeft;
+        private TextBox inche;
         private Button buttonCalc;
         private Label label12;
+        private GroupBox groupBox;
+        private RadioButton radioButtonFT;
+        private RadioButton radioButtonKG;
+        private TextBox feetCm;
     }
 }
