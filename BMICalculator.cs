@@ -10,7 +10,6 @@ namespace Assignment3
     internal class BMICalculator
     {
         //instance variables:
-         
         private double userHeight = 0;
         private double userWeight = 0;
         private UnitTypes unit;
@@ -23,7 +22,6 @@ namespace Assignment3
             unit = UnitTypes.Metric;
         }
 
-
         #region Setters and Getter: 
         ///<summery>
         ///Here I providing getters and setters for all the information we need to use that is provided by the user. I use getters and seeters to provid this iformtion to our private instance variables
@@ -35,14 +33,12 @@ namespace Assignment3
         }
         public void settingUserHeight(double newHeight)
         {
-            //checking the value that is not minus or zero
+            //checking the value that is not minus
             if (newHeight >= 0)
             {
                 userHeight = newHeight;
             }
-           
         }
-
 
         public double gettingUserWeight()
         {
@@ -54,27 +50,28 @@ namespace Assignment3
             { 
                 userWeight = newWeight;
             }
-           
         }
 
-
         /// <summary>
-        /// setters and getters frot the unit. We need to know what value the user like the calculation to be in: metric or imperial
+        /// setters and getters for the unit. We need to know what value the user like the calculation to be in: metric or imperial
         /// </summary>
         public UnitTypes gettingUnitType()
         {
-
             return unit;
         }
         public void settingUnitType(UnitTypes newUnit)
         {
-            //we do not need to do any inoput check becasue there can not be any other input. 
+            //we do not need to do any input check becasue there can not be any other input then metric/imperial. 
             unit = newUnit;
         }
         #endregion
 
-
-        //calculations: 
+        /// <summary>
+        /// This method do the calculations for the BMI:
+        /// It takes the user weight and * it by the factor (that is different depending on if its in imperial/metric 
+        /// it takes the usersheight * itself and then this to values are divaded to provide correct BMI:
+        /// </summary>
+        /// <returns>this method returns the BMI value that should be provided to the main form so that it can be displayed to the uer. </returns>
         public double calculateBMI()
         {
             //local variables
@@ -92,7 +89,10 @@ namespace Assignment3
             return bmiValue;
 
         }
-
+        /// <summary>
+        /// Depending on the BMI result the user will be told different outcomes, if their weight is good or bad;
+        /// </summary>
+        /// <returns>a string whith the result of the BMI</returns>
         public string bmiWeightCat()
         {
             double bmi = calculateBMI();
