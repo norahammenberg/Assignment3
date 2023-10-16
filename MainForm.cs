@@ -223,10 +223,7 @@ namespace Assignment3
         {
             //calling the update text method:
             updateTHWText();
-
         }
 
     }
-
-
 }
