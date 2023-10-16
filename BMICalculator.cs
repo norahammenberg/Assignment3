@@ -69,7 +69,7 @@ namespace Assignment3
         public void settingUnitType(UnitTypes newUnit)
         {
             //we do not need to do any inoput check becasue there can not be any other input. 
-            newUnit = unit;
+            unit = newUnit;
         }
         #endregion
 

@@ -5,7 +5,7 @@ namespace Assignment3
 {
     public partial class MainForm : Form
     {
-        //creating an instance variable an object of the BMI Calculator class:
+        //creating an instance variable, an object of the BMI Calculator class:
         private BMICalculator bmiCalc = new BMICalculator();
 
         //creating this instance varibale to store the name of the user:
@@ -19,10 +19,11 @@ namespace Assignment3
         {
             InitializeComponent();
             InitializeGUI();
-
         }
+
+
         /// <summary>
-        /// This method is used to initializing the Graphic user Interface. It clears all input and output. When a new user use it it will be clear from all old inouts and outputs. 
+        /// This method is used to initializing the Graphic user Interface. It clears all input and output. When a new user use it.
         /// </summary>
         private void InitializeGUI()
         {
@@ -61,36 +62,52 @@ namespace Assignment3
         }
 
         /// <summary>
-        /// This method reads the user name and allocate it to "reslt for"
+        /// This method checking what radiobutton the user picks: depending what the user picks that corresponding unit is sett by calling the eetingUnitType method in tht BMI calcolator: 
+        /// </summary>
+        private void readUnit()
+        {
+            if (radioButtonKG.Checked)
+            {
+                bmiCalc.settingUnitType(UnitTypes.Metric);
+            }
+            else 
+            {
+                bmiCalc.settingUnitType(UnitTypes.Imperial);
+            }
+        }
+
+        /// <summary>
+        /// This method reads the user name and allocate it to "result for" in the interface.
+        /// The method triming the input to remove the spaces in the beginning and the end:
         /// </summary>
         private void readName()
         {
-            //show the name that the user provided and triming the input to remove the spaces in the beginning and the end:
             name = textName.Text.Trim();
 
             //setting the provided name in the result box:
             resultText.Text = "Result for " + name;
         }
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         /// <summary>
-        /// /You have to write this
+        /// The method readingHight reads the users inout in the height box.
+        /// the method checks if a true value, a number, have been provided. Have it not a message box will tell the user that it wa an invalude input. 
+        /// If the value is correct itt will be set by using the settingUserHeight method in the BMI calculator so the value can be used to calculate the BMI.
+        /// 
+        /// depending if the user pick metric or emperial a different calculation to convert to meters or inches will be executed. 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>returning a true or false value depending on if the user have provided a accuret value</returns>
         private bool readHeight()
         {
             //local variable to temporaly save the user input
             double userHeight = 0.0;
-
-            //local variable to save transfer the uservaluse to double and check if it is an ok value:
             bool okValueByUser = double.TryParse(feetCm.Text, out userHeight);
+
             if (!okValueByUser)
             {
                 MessageBox.Show("Invalide!", "Error");
             }
 
-            ///for inches as well
+            //for imperial
             double inches = 0.0;
             if (radioButtonFT.Checked)
             {
@@ -103,42 +120,25 @@ namespace Assignment3
             }
 
             //converting cm to m, and feet needs to be conferter to inches:
-            if (bmiCalc.gettingUnitType() == UnitTypes.Metric)
+            if (radioButtonKG.Checked)
             {
                 userHeight = userHeight / 100.0;
             }
-            else if (bmiCalc.gettingUnitType() == UnitTypes.Imperial) 
+            else if (radioButtonFT.Checked)
             {
-                userHeight = (userHeight *12) + inches;
+                userHeight = userHeight * 12.00 + inches;
             }
 
+            //setting the userHeight:
             bmiCalc.settingUserHeight(userHeight);
 
-            //returningn this value:
             return okValueByUser;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /// <summary>
-        /// you have to write thsi
+        /// This method do the same as the above method but for weight, except here we dn't need to do anything for imperial/metric nputs all inputs for the weight will be used the same. 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>returning a true or false value depending on if the user have provided a accuret value</returns>
         private bool readWeight()
         {
             //local variable to temporaly save the user input
@@ -160,53 +160,36 @@ namespace Assignment3
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        private void readUnit()
-        {
-            if (radioButtonKG.Checked)
-            {
-                bmiCalc.settingUnitType(UnitTypes.Metric);
-            }
-            else
-            {
-                bmiCalc.settingUnitType(UnitTypes.Imperial);
-            }
-        }
-
-
-
-        /// <summary>
         /// This method reads all inputs by calling the three above methods:
         /// </summary>
         /// <returns> the okay value inputed by the user</returns>
         private bool readInput()
-        {
+        {            
             //reading all input by calling the following methods:
+            readUnit();
             readName();
 
             bool heightOk = readHeight();
             bool weightOk = readWeight();
-            readUnit();
-
+          
             return heightOk && weightOk;
         }
 
+        /// <summary>
+        /// A method that calulat the result by calling the calculatBMI method in the BMI calculator class:
+        /// and displaying the result by adding the different needed result at the right place in the interface:
+        /// </summary>
         private void calcResultDisply()
         {
             double bmi = bmiCalc.calculateBMI();
-           
             bmiResult.Text = bmi.ToString("f2");//f2= telling the program to show a 2 floating number.
             weightResult.Text = bmiCalc.bmiWeightCat().ToString();
-
         }
-
-
 
         /// <summary>
         /// This is the method the is executing when the user press the button on the application. 
-        /// The method checks if the input is okay/True. and if it is it is calling the method displayResult.
-        /// if it is nit true it eill give the user a messagebox that tells them toaddress the issues. 
+        /// The method checks if the input is okay/True. and if it is it is calling the method readInput.
+        /// the the method calcResultDisply is called to be executed when the button is clicked. 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -220,8 +203,6 @@ namespace Assignment3
 
         }
 
-
-
         /// <summary>
         /// when the user click on the radiobutton for metric the updateTHWText is called to change the height and weight lable:
         /// </summary>
@@ -232,7 +213,6 @@ namespace Assignment3
             //calling the update text method:
             updateTHWText();
         }
-
 
         /// <summary>
         /// when the user click on the radiobutton for imperial the updateTHWText is called to change the height and weight lable:
@@ -246,10 +226,6 @@ namespace Assignment3
 
         }
 
-        private void inche_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
     }
 
 

@@ -183,7 +183,6 @@
             inche.Name = "inche";
             inche.Size = new Size(52, 23);
             inche.TabIndex = 15;
-            inche.TextChanged += inche_TextChanged;
             // 
             // buttonCalc
             // 
